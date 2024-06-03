@@ -5,8 +5,11 @@
     "storageAccountName": {
       "value": "bicepstorage42"
     },
+    "storageAccountNameCopy": {
+      "value": "bicepstorage42copy"
+    },
     "storageAccountSku": {
-      "value": "Standard_LRS"
+      "value" : "Standard_LRS"
     }
   }
 }

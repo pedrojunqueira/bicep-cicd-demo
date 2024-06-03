@@ -1,0 +1,33 @@
+name: deploy-bicep
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy-azure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'az cli login'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az deployment group create --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --template-file ./main.bicep \
+            --parameters ./main.parameters.json
