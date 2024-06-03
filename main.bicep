@@ -1,14 +1,29 @@
 
+@description('Storage account name')
+param storageAccountName string
+
+@allowed([
+  'Standard_LRS'
+  'Standard_GRS'
+])
+@description('Storage account sku')
+param storageAccountSku string
+
+@description('Storage account location')
+param location string = 'australiaeast'
+
+var storageAccountKind = 'StorageV2'
+var minimumTlsVersion = 'TLS1_2'
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-04-01' = {
-  name: 'bicepstorage42'
-  location: 'australiaeast'
+  name: storageAccountName
+  location: location
   sku: {
-    name: 'Standard_LRS'
+    name: storageAccountSku
   }
-  kind: 'StorageV2'
+  kind: storageAccountKind
   properties:{
-    minimumTlsVersion: 'TLS1_2'
+    minimumTlsVersion: minimumTlsVersion
     supportsHttpsTrafficOnly: true
     isHnsEnabled: true
   }
