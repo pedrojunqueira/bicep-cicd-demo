@@ -33,6 +33,7 @@ module storageAccount 'modules/storage-account.bicep' = {
   }
 }
 
+
 module storageAccountCopy 'modules/storage-account.bicep' = {
   name: 'deploy-${storageAccountNameCopy}'
   params: {
